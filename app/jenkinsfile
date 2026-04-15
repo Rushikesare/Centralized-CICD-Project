@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Clone') {
+            steps {
+                echo 'Cloning repository'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t cicd-app:v1 .'
+            }
+        }
+
+        stage('Run Container') {
+            steps {
+                sh 'docker run -d -p 80:80 cicd-app:v1'
+            }
+        }
+
+    }
+}
